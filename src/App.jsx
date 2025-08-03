@@ -10,8 +10,11 @@ function debug(...messages) {
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import './App.css';
+import './styles/theme.scss';
+import SunnyIcon from './assets/sunny.svg';
+import MoonIcon from './assets/moon.svg';
 import { v4 as uuidv4 } from 'uuid';
+import { img } from 'motion/react-client';
 
 // Variants for motion animations
 const variants = {
@@ -176,6 +179,29 @@ const addTask = (task, setTasks) => {
 	});
 };
 
+// create a btn which is at the bottom right corner of the page and is circular and when clicked it should flip and it should display moon icon but ehn it is clicked again it shows sun icon and remember that you have to create icons on your own
+const SunMoonButton = () => {
+	const [isMoon, setIsMoon] = useState(false);
+	return (
+		<motion.button
+			className="absolute bottom-0 right-0 p-2 bg-blue-500 rounded-full shadow-lg transition-all duration-500
+			h-[60px] w-[60px]
+			"
+			style={{ right: '2rem', bottom: '2rem' }}
+			initial={{ rotate: 0 }}
+			onClick={() => setIsMoon(!isMoon)}
+		>
+			{
+				isMoon ?
+					<img className='ml-2' src={SunnyIcon} alt="" />
+					:
+					<img className='ml-2' src={MoonIcon} alt="" />
+			}
+
+		</motion.button>
+	);
+};
+
 // Main App component
 function App() {
 	debug('Rendering App component');
@@ -199,6 +225,9 @@ function App() {
 			inputRef.current.value = '';
 		}
 	};
+
+
+
 
 	// Render App component
 	return (
@@ -264,9 +293,12 @@ function App() {
 				</motion.button>
 			</div>
 			<Task tasks={tasks} setTasks={setTasks} filter={filter} />
+			<SunMoonButton />
+
 		</motion.div>
 	);
 }
 
 export default App;
+
 
