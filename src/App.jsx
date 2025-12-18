@@ -234,6 +234,14 @@ function App() {
 		<motion.div
 			className="max-w-md mx-auto mt-10 p-5 bg-gray-100 rounded-lg shadow-lg transition-all duration-500"
 		>
+			<button
+				onClick={() => {
+					throw new Error('This is your first error!');
+				}}
+			>
+				Break the world
+			</button>
+			);
 			<h1 className="text-3xl font-bold text-center mb-6 text-blue-700">Taskter</h1>
 			<div className="flex mb-6">
 				<motion.input
